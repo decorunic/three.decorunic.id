@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,43 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('login', [
+Route::get('/coba', function () {
+    return view('coba', [
         'siteName' => 'Decorunic AR Management',
-        'title' => 'Login'
+        'title' => 'Coba'
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard', [
-        'siteName' => 'Decorunic AR Management',
-        'title' => 'Dashboard'
-    ]);
-});
+Route::get('/', [AuthController::class, 'index']);
 
-Route::get('/products/list', function () {
-    return view('products-list', [
-        'siteName' => 'Decorunic AR Management',
-        'title' => 'Product List'
-    ]);
-});
+Route::get('/dashboard', [DashboardController::class, 'index']);
 
-Route::get('/products/add', function () {
-    return 'Product Add';
-});
-
-Route::post('/products/save', function () {
-    return 'Product Save';
-});
-
-Route::get('/products/edit/{id}', function ($id) {
-    return 'Product Edit '.$id;
-});
-
-Route::post('/products/update/{id}', function ($id) {
-    return 'Product Update '.$id;
-});
-
-Route::get('/products/{id}', function ($id) {
-    return 'Product '.$id;
-});
+Route::get('/products/list', [ProductsController::class, 'index']);
+Route::get('/products/add', [ProductsController::class, 'add']);
+Route::post('/products/save', [ProductsController::class, 'save']);
+Route::get('/products/edit/{id}', [ProductsController::class, 'edit']);
+Route::post('/products/update/{id}', [ProductsController::class, 'update']);
+Route::get('/products/{id}', [ProductsController::class, 'products']);

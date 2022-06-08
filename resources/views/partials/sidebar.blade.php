@@ -1,11 +1,11 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ '/' }}">
         <div class="sidebar-brand-icon">
             <i class="fas fa-vr-cardboard"></i>
         </div>
-        <div class="sidebar-brand-text ml-3">Decorunic AR</div>
+        <div class="sidebar-brand-text ml-3">3D Decorunic</div>
     </a>
 
     <!-- Divider -->
@@ -20,11 +20,11 @@
     <hr class="sidebar-divider">
 
     <div class="sidebar-heading">
-        AR Management
+        3D Model Management
     </div>
     <li class="nav-item {{ ($title === 'Product List') ? 'active' : ''}}">
-        <a class="nav-link" href="{{ 'products/list' }}">
-            <i class="fas fa-fw fa-vr-cardboard"></i>
+        <a class="nav-link" href="{{ '/products/list' }}">
+            <i class="fas fa-fw fa-box"></i>
             <span>Products</span>
         </a>
     </li>

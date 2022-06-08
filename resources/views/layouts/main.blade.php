@@ -20,6 +20,10 @@
     <!-- Custom styles for this template-->
     <link href="{{ '/sb-admin-2/css/sb-admin-2.min.css' }}" rel="stylesheet">
 
+    <?php if(Request::path() === 'products/list'): ;?>
+        <!-- Datatables-->
+        <link href="{{ '/sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.css' }}" rel="stylesheet">
+    <?php endif;?>
 </head>
 
 <body id="page-top">
@@ -85,6 +89,14 @@
     <!-- Custom scripts for all pages-->
     <script src="{{ '/sb-admin-2/js/sb-admin-2.min.js' }}"></script>
 
+    <?php if(Request::path() === 'products/list'): ;?>
+        <!-- Datatables Page level plugins -->
+        <script src="{{ '/sb-admin-2/vendor/datatables/jquery.dataTables.min.js' }}"></script>
+        <script src="{{ '/sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js' }}"></script>
+
+        <!-- Datatables Page level custom scripts -->
+        <script src="{{ '/sb-admin-2/js/demo/datatables-demo.js' }}"></script>
+    <?php endif;?>
 </body>
 
 </html>
