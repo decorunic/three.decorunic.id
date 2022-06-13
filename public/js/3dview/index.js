@@ -54,25 +54,36 @@ const camera = new THREE.PerspectiveCamera(
 );
 
 camera.position.set(0, 2, 10);
+// camera.position.set( 7, 3, 7 );
 scene.add(camera);
 
 // Control
 const control = new OrbitControls(camera, canvas);
 control.enableDamping = true;
 control.target.set(0, 0.3, 0);
-control.autoRotate = true;
+control.autoRotate = false;
 control.enableRotate = true;
 
 // Renderer
-const renderer = new THREE.WebGLRenderer({
-  canvas,
-  alpha: true,
-  antialias: true,
-});
+// const renderer = new THREE.WebGLRenderer({
+//   canvas,
+//   alpha: true,
+//   antialias: true,
+// });
+// renderer.shadowMap.enabled = true;
+// renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+// renderer.setSize(sizes.width, sizes.height);
+// renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+const renderer = new THREE.WebGLRenderer( { canvas,antialias: true } );
+renderer.setPixelRatio( window.devicePixelRatio );
+renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-renderer.setSize(sizes.width, sizes.height);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+const pmremGenerator = new THREE.PMREMGenerator(renderer);
+pmremGenerator.compileEquirectangularShader();
 
 // Resize
 window.addEventListener('resize', () => {
