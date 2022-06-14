@@ -8,7 +8,7 @@ import { RoomEnvironment } from '../../vendor/environments/RoomEnvironment.js';
 const canvas = document.querySelector('.result');
 // Scene
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xcccccc);
+scene.background = new THREE.Color(0xbbbbbb);
 
 // Models
 const gltfLoader = new GLTFLoader();
@@ -19,7 +19,7 @@ gltfLoader.setDRACOLoader(dracoLoader);
 
 let mixer = null;
 let product = null;
-gltfLoader.load(`/models/luna-lift-up.glb`, (glb) => {
+gltfLoader.load(`/models/ishana.glb`, (glb) => {
   product = glb;
   mixer = new THREE.AnimationMixer(product.scene);
   const clips = glb.animations;
@@ -39,29 +39,29 @@ gltfLoader.load(`/models/luna-lift-up.glb`, (glb) => {
 // directionalLights.castShadow = true;
 // directionalLights.position.set(1, 1, 1).normalize();
 // scene.add(directionalLights);
-// const hlight = new THREE.AmbientLight( 0x404040, 1 );
-// scene.add( hlight );
+const hlight = new THREE.AmbientLight( 0x404040, 1 );
+scene.add( hlight );
 
-// const directionalLight = new THREE.DirectionalLight( 0xffffff, 1);
-// directionalLight.castShadow = true;
-// directionalLight.shadow.camera.top = 4;
-// directionalLight.shadow.camera.bottom = - 4;
-// directionalLight.shadow.camera.left = - 4;
-// directionalLight.shadow.camera.right = 4;
-// directionalLight.shadow.camera.near = 0.1;
-// directionalLight.shadow.camera.far = 40;
-// directionalLight.shadow.camera.far = 40;
-// directionalLight.shadow.bias = - 0.002;
-// directionalLight.position.set(0, 20, 20);
-// scene.add(directionalLight);
+const directionalLight = new THREE.DirectionalLight( 0xffffff, 1);
+directionalLight.castShadow = true;
+directionalLight.shadow.camera.top = 4;
+directionalLight.shadow.camera.bottom = - 4;
+directionalLight.shadow.camera.left = - 4;
+directionalLight.shadow.camera.right = 4;
+directionalLight.shadow.camera.near = 0.1;
+directionalLight.shadow.camera.far = 40;
+directionalLight.shadow.camera.far = 40;
+directionalLight.shadow.bias = - 0.002;
+directionalLight.position.set(0, 20, 20);
+scene.add(directionalLight);
 
 // const light4 = new THREE.PointLight(0xc4c4c4,10);
 // light4.position.set(-100,0,50);
 // scene.add(light4);
 
-// const light2 = new THREE.PointLight(0xc4c4c4,10);
-// light2.position.set(100,100,0);
-// scene.add(light2);
+const light2 = new THREE.PointLight(0xc4c4c4,10);
+light2.position.set(100,100,0);
+scene.add(light2);
 
 // Sizes
 const sizes = {
@@ -106,11 +106,11 @@ renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const environment = new RoomEnvironment();
+// const environment = new RoomEnvironment();
 const pmremGenerator = new THREE.PMREMGenerator(renderer);
 
 pmremGenerator.compileEquirectangularShader();
-scene.environment = pmremGenerator.fromScene(environment).texture;
+// scene.environment = pmremGenerator.fromScene(environment).texture;
 
 // Resize
 window.addEventListener('resize', () => {
