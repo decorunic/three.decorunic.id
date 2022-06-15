@@ -2,31 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Products;
-use App\Http\Requests\StoreProductsRequest;
-use App\Http\Requests\UpdateProductsRequest;
+use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return view('products/list', [
             'siteName' => 'Decorunic 3D Management',
-            'title' => 'Product List',
-            'products' => Products::all()
-        ]);
+            'title' => 'Product List'
+        ]);   
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function products($id)
     {
         return view('products/detail', [
