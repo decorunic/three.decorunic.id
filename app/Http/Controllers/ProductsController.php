@@ -29,9 +29,12 @@ class ProductsController extends Controller
      */
     public function products($id)
     {
+        $product = Products::find($id);
+
         return view('products/detail', [
             'siteName' => 'Decorunic 3D Management',
-            'title' => 'Product Detail '.$id
+            'title' => 'Detail Produk '. $product['name'],
+            'product' => $product,
         ]);
     }
     

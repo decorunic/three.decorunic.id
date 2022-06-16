@@ -15,7 +15,6 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Image</th>
                                     <th>Created At</th>
                                     <th>Updated At</th>
                                     <th>Action</th>
@@ -25,30 +24,27 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Image</th>
-                                    <th>Created At</th>
-                                    <th>Updated At</th>
+                                    <th>Created at</th>
+                                    <th>Updated at</th>
                                     <th>Action</th>
                                 </tr>
                             </tfoot>
                             <tbody>
+                                @php
+                                function TimeFormater($time) { return date('H:i, d/m/Y',strtotime($time));}
+                                @endphp
                                 @foreach ($products as $product)
                                 <tr>
                                     <td>{{ $product['id'] }}</td>
-                                    <td>{{ $product['name'] }}</td>
+                                    <td><a href="{{ '/products/'.$product['id'] }}">{{ $product['name'] }}</a></td>
+                                    
+                                    <td>{{ TimeFormater($product['created_at']) }}</td>
+                                    <td>{{ TimeFormater($product['updated_at']) }}</td>
                                     <td>
-                                        <img class="img-thumbnail" style="width: 150px;height: 100px; object-fit:cover" src="{{ $product['image_url'] }}" alt="Gambar {{ $product['name'] }}">
-                                    </td>
-                                    <td>{{ $product['created_at'] }}</td>
-                                    <td>{{ $product['updated_at'] }}</td>
-                                    <td>
-                                        <button class="btn btn-info m-1">
-                                            <i class="fas fa-copy"></i>
-                                        </button>
-                                        <a href="{{ '/products/edit/'. $product['id'] }}" class="btn btn-warning m-1">
+                                        <a href="{{ '/products/edit/'. $product['id'] }}" class="btn btn-warning">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
-                                        <a href="{{ '/products/delete/'. $product['id'] }}" class="btn btn-danger m-1">
+                                        <a href="{{ '/products/delete/'. $product['id'] }}" class="btn btn-danger">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </td>

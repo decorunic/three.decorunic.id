@@ -17,8 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('image_url');
-            $table->string('file');
-            $table->text('embeded_url');
+            $table->string('files');
             $table->timestamps();
         });
     }
