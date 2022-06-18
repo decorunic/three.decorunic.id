@@ -12,6 +12,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
+                                    <th>Publisher</th>
                                     <th>Created At</th>
                                     <th>Updated At</th>
                                     <th>Action</th>
@@ -21,6 +22,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
+                                    <th>Publisher</th>
                                     <th>Created at</th>
                                     <th>Updated at</th>
                                     <th>Action</th>
@@ -35,14 +37,14 @@
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td><a href="{{ '/products/'.$product->id }}">{{ $product->name }}</a></td>
-                                    
+                                    <td><a href=""></a></td>
                                     <td>{{ TimeFormater($product->created_at) }}</td>
                                     <td>{{ TimeFormater($product->updated_at) }}</td>
                                     <td>
-                                        <a href="{{ '/products/edit/'. $product->id }}" class="btn btn-warning">
+                                        <a href="{{ '/products/edit/'. $product->id }}" class="btn btn-warning mb-1">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
-                                        <a href="{{ '/products/delete/'. $product->id }}" class="btn btn-danger">
+                                        <a href="{{ '/products/delete/'. $product->id }}" class="btn btn-danger mb-1">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </td>

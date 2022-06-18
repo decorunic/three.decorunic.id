@@ -22,11 +22,22 @@
     <div class="sidebar-heading">
         3D Model Management
     </div>
-    <li class="nav-item {{ ($title === 'Product List') ? 'active' : ''}}">
-        <a class="nav-link" href="{{ '/products/list' }}">
+
+    <li class="nav-item active">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
+            aria-expanded="true" aria-controls="collapseProducts">
             <i class="fas fa-fw fa-box"></i>
             <span>Products</span>
         </a>
+        {{-- <div id="collapseProducts" class="collapse show" aria-labelledby="headingProducts" data-parent="#accordionSidebar"> --}}
+        <div id="collapseProducts" class="collapse" aria-labelledby="headingProducts" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Manage Products:</h6>
+                <a class="collapse-item" href="{{ '/products/list' }}">All</a>
+                <a class="collapse-item" href="{{ '/products/add' }}">Add New</a>
+                <a class="collapse-item" href="{{ '/products/categories' }}">Categories</a>
+            </div>
+        </div>
     </li>
 
     <!-- Divider -->
