@@ -40,7 +40,7 @@
                                     <td>{{ $no++ }}</td>
                                     <td><a href="{{ '/products/'.$product->id }}">{{ $product->name }}</a></td>
                                     <td><a href="{{ '/products/categories/'. $product->category->slug  }}">{{ $product->category->name }}</a></td>
-                                    <td></td>
+                                    <td><a href="#">{{ $product->user->name }}</a></td>
                                     <td>{{ TimeFormater($product->created_at) }}</td>
                                     <td>{{ TimeFormater($product->updated_at) }}</td>
                                     <td>

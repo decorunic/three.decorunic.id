@@ -7,21 +7,21 @@
     <div class="col-12 mb-3">
       <div class="card shadow mb-3">
 			  <div class="row no-gutters">
-			    <div class="col-md-5">
-			      <img src="{{ $product->image_url }}" class="card-img" alt="{{ $product->name }}">
+			    <div class="col-lg-5">
+			      <img src="{{ $product->image_url }}" class="card-img h-100" alt="{{ $product->name }}">
 			    </div>
-			    <div class="col-md-7">
-						<div class="card-header small text-muted">
+			    <div class="col-lg-7">
+						<div class="card-header small text-muted d-flex">
 							@php
 									function TimeFormater($time) { return date('h:i, d/m/Y',strtotime($time));}
 							@endphp
 							Dibuat {{ TimeFormater($product->created_at) }} &bull; Diperbarui {{ TimeFormater($product->updated_at) }}
+							<a href="" class="ml-auto">{{ $product->user->name; }}</a>
 						</div>
 						<div class="card-body">
 			        <h3 class="card-title">
                 {{ $product->name }}
-							</h3>
-							<a href="{{ '/products/categories/'. $product->category->slug  }}" class="badge badge-light">{{ $product->category->name }}</a>
+							</h3><a href="{{ '/products/categories/'. $product->category->slug  }}" class="badge badge-light">{{ $product->category->name }}</a>
 			        <p class="card-text">
 								<div class="row">
 									<div class="col-12">
