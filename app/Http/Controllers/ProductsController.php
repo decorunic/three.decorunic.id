@@ -19,7 +19,7 @@ class ProductsController extends Controller
             'siteName' => 'Decorunic 3D Management',
             'title' => 'Product List',
             // 'products' => Products::all()
-            'products' => Products::latest()->get()
+            'products' => Products::with(['publisher', 'category'])->latest()->get()
         ]);
     }
 
