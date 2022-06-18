@@ -33,5 +33,5 @@ Route::post('/products/save', [ProductsController::class, 'save']);
 Route::get('/products/edit/{id}', [ProductsController::class, 'edit']);
 Route::post('/products/update/{id}', [ProductsController::class, 'update']);
 Route::get('/products/{id}', [ProductsController::class, 'products']);
-Route::get('/products/view-3d/{slug}', [ProductsController::class, 'view3D']);
-Route::get('/products/view-ar/{slug}', [ProductsController::class, 'viewAR']);
+Route::get('/products/view-3d/{product:slug}', [ProductsController::class, 'view3D']);
+Route::get('/products/view-ar/{product:slug}', [ProductsController::class, 'viewAR']);

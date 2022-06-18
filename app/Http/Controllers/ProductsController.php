@@ -38,19 +38,21 @@ class ProductsController extends Controller
         ]);
     }
     
-    public function view3D($slug)
+    public function view3D(Products  $product)
     {
         return view('products/view3d', [
             'siteName' => 'Decorunic 3D Management',
-            'title' => '3D View '.$slug
+            'title' => '3D View '. $product,
+            'product' => $product
         ]);
     }
-
-    public function viewAR($slug)
+    
+    public function viewAR(Products  $product)
     {
         return view('products/viewar', [
             'siteName' => 'Decorunic 3D Management',
-            'title' => 'AR View '.$slug
+            'title' => 'AR View '. $product,
+            'product' => $product
         ]);
     }
     

@@ -11,13 +11,13 @@
 			      <img src="{{ $product['image_url'] }}" class="card-img" alt="{{ $product['name'] }}">
 			    </div>
 			    <div class="col-md-7">
+						<div class="card-header small text-muted">
+							@php
+									function TimeFormater($time) { return date('h:i, d/m/Y',strtotime($time));}
+							@endphp
+							Dibuat {{ TimeFormater($product['created_at']) }} &bull; Diperbarui {{ TimeFormater($product['updated_at']) }}
+						</div>
 						<div class="card-body">
-							<p class="small">
-								@php
-										function TimeFormater($time) { return date('h:i, d/m/Y',strtotime($time));}
-								@endphp
-								Dibuat {{ TimeFormater($product['created_at']) }} &bull; Diperbarui {{ TimeFormater($product['updated_at']) }}
-							</p>
 			        <h3 class="card-title">
                 {{ $product['name'] }}
 							</h3>
@@ -36,26 +36,28 @@
 												<pre>
 													<code class="language-html">&lt;iframe title="lisa" src="{{ URL::to('/products/view-3d/' . $product['id'])}}" frameborder="0" allowfullscreen="allowfullscreen" style="width:100%; height:264px">&lt;/iframe&gt;</code>
 												</pre>
+												<a href="{{ '/products/view-3d/'. $product['slug'] }}" class="btn btn-info">View 3D</a>
 											</div>
 											<div class="tab-pane fade" id="nav-view-ar" role="tabpanel" aria-labelledby="nav-view-ar-tab">
 												<pre>
 													<code class="language-html">&lt;iframe title="lisa" src="{{ URL::to('/products/view-ar/' . $product['id'])}}" frameborder="0" allowfullscreen="allowfullscreen" style="width:100%; height:264px">&lt;/iframe&gt;</code>
 												</pre>
+												<a href="{{ '/products/view-ar/'. $product['slug'] }}" class="btn btn-info">View AR</a>
 											</div>
 											<script src="{{ '/vendor/prism/prism.js' }}"></script>
 										</div>
 									</div>
-									<div class='col-12'>
-										<a href="{{ '/products/edit/'. $product['id'] }}" class="btn btn-warning">
-												<i class="fas fa-pencil-alt"></i>
-										</a>
-										<a href="{{ '/products/delete/'. $product['id'] }}" class="btn btn-danger" onclick="return confirm('Are you sure?')">
-												<i class="fas fa-trash"></i>
-										</a>
-									</div>
 								</div>
               <p>
 			      </div>
+						<div class="card-footer">
+							<a href="{{ '/products/edit/'. $product['id'] }}" class="btn btn-warning">
+									<i class="fas fa-pencil-alt"></i>
+							</a>
+							<a href="{{ '/products/delete/'. $product['id'] }}" class="btn btn-danger" onclick="return confirm('Are you sure?')">
+									<i class="fas fa-trash"></i>
+							</a>
+						</div>
 			    </div>
 			  </div>
 			</div>
