@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductsController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,21 @@ Route::get('/', [AuthController::class, 'index']);
 Route::get('/dashboard', [DashboardController::class, 'index']);
 
 Route::get('/products/list', [ProductsController::class, 'index']);
+Route::get('/products/categories/', function(){
+    return view('products/listCategory', [
+        'siteName' => 'Decorunic 3D Management',
+        'title' => 'Product Categories',
+        'categories' => Category::all()
+    ]);
+});
+Route::get('/products/categories/{category:slug}', function(Category $category){
+    return view('products/listByCategory', [
+        'siteName' => 'Decorunic 3D Management',
+        'title' => $category->name,
+        'products' => $category->products,
+        'category' => $category->name
+    ]);
+});
 Route::get('/products/add', [ProductsController::class, 'add']);
 Route::post('/products/save', [ProductsController::class, 'save']);
 Route::get('/products/edit/{id}', [ProductsController::class, 'edit']);

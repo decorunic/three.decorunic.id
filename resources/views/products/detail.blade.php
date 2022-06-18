@@ -8,19 +8,20 @@
       <div class="card shadow mb-3">
 			  <div class="row no-gutters">
 			    <div class="col-md-5">
-			      <img src="{{ $product['image_url'] }}" class="card-img" alt="{{ $product['name'] }}">
+			      <img src="{{ $product->image_url }}" class="card-img" alt="{{ $product->name }}">
 			    </div>
 			    <div class="col-md-7">
 						<div class="card-header small text-muted">
 							@php
 									function TimeFormater($time) { return date('h:i, d/m/Y',strtotime($time));}
 							@endphp
-							Dibuat {{ TimeFormater($product['created_at']) }} &bull; Diperbarui {{ TimeFormater($product['updated_at']) }}
+							Dibuat {{ TimeFormater($product->created_at) }} &bull; Diperbarui {{ TimeFormater($product->updated_at) }}
 						</div>
 						<div class="card-body">
 			        <h3 class="card-title">
-                {{ $product['name'] }}
+                {{ $product->name }}
 							</h3>
+							<a href="{{ '/products/categories/'. $product->category->slug  }}" class="badge badge-light">{{ $product->category->name }}</a>
 			        <p class="card-text">
 								<div class="row">
 									<div class="col-12">
@@ -34,15 +35,15 @@
 											<link rel="stylesheet" href="{{ '/vendor/prism/prism.css' }}">
 											<div class="tab-pane fade show active" id="nav-view-3d" role="tabpanel" aria-labelledby="nav-view-3d-tab">
 												<pre>
-													<code class="language-html">&lt;iframe title="lisa" src="{{ URL::to('/products/view-3d/' . $product['id'])}}" frameborder="0" allowfullscreen="allowfullscreen" style="width:100%; height:264px">&lt;/iframe&gt;</code>
+													<code class="language-html">&lt;iframe title="lisa" src="{{ URL::to('/products/view-3d/' . $product->id)}}" frameborder="0" allowfullscreen="allowfullscreen" style="width:100%; height:264px">&lt;/iframe&gt;</code>
 												</pre>
-												<a href="{{ '/products/view-3d/'. $product['slug'] }}" class="btn btn-info">View 3D</a>
+												<a href="{{ '/products/view-3d/'. $product->slug }}" class="btn btn-info">View 3D</a>
 											</div>
 											<div class="tab-pane fade" id="nav-view-ar" role="tabpanel" aria-labelledby="nav-view-ar-tab">
 												<pre>
-													<code class="language-html">&lt;iframe title="lisa" src="{{ URL::to('/products/view-ar/' . $product['id'])}}" frameborder="0" allowfullscreen="allowfullscreen" style="width:100%; height:264px">&lt;/iframe&gt;</code>
+													<code class="language-html">&lt;iframe title="lisa" src="{{ URL::to('/products/view-ar/' . $product->id)}}" frameborder="0" allowfullscreen="allowfullscreen" style="width:100%; height:264px">&lt;/iframe&gt;</code>
 												</pre>
-												<a href="{{ '/products/view-ar/'. $product['slug'] }}" class="btn btn-info">View AR</a>
+												<a href="{{ '/products/view-ar/'. $product->slug }}" class="btn btn-info">View AR</a>
 											</div>
 											<script src="{{ '/vendor/prism/prism.js' }}"></script>
 										</div>
@@ -51,10 +52,10 @@
               <p>
 			      </div>
 						<div class="card-footer">
-							<a href="{{ '/products/edit/'. $product['id'] }}" class="btn btn-warning">
+							<a href="{{ '/products/edit/'. $product->id }}" class="btn btn-warning">
 									<i class="fas fa-pencil-alt"></i>
 							</a>
-							<a href="{{ '/products/delete/'. $product['id'] }}" class="btn btn-danger" onclick="return confirm('Are you sure?')">
+							<a href="{{ '/products/delete/'. $product->id }}" class="btn btn-danger" onclick="return confirm('Are you sure?')">
 									<i class="fas fa-trash"></i>
 							</a>
 						</div>

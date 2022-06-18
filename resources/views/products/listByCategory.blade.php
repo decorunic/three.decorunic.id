@@ -1,11 +1,8 @@
 @extends('layouts.main')
 
 @section('container')
-    <h1 class="h3 mb-4 text-gray-800">{{ $title }}</h1>
+    <h1 class="h3 mb-4 text-gray-800">Product Categories: <b>{{ $title }}</b></h1>
     <div class="row">
-        <div class="col-12 mb-3">
-            <a href="{{ '/products/add' }}" class="btn btn-primary">Add Product</a>
-        </div>
         <div class="col-12 mb-3">
             <div class="card shadow mb-4">
                 <div class="card-body">
