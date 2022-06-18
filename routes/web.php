@@ -38,17 +38,16 @@ Route::get('/products/categories/', function(){
     ]);
 });
 Route::get('/products/categories/{category:slug}', function(Category $category){
-    return view('products/listByCategory', [
+    return view('products/list', [
         'siteName' => 'Decorunic 3D Management',
-        'title' => $category->name,
-        'products' => $category->products,
-        'category' => $category->name
+        'title' => 'Products by Category: ' . $category->name,
+        'products' => $category->products
     ]);
 });
 Route::get('/products/publishers/{publisher:username}', function(User $publisher){
     return view('products/list', [
         'siteName' => 'Decorunic 3D Management',
-        'title' => 'Publisher Products: '.$publisher->name,
+        'title' => 'Products by Publisher: ' . $publisher->name,
         'products' => $publisher->products,
     ]);
 });
