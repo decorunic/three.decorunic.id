@@ -17,8 +17,8 @@ class Products extends Model
         return $this->belongsTo(Category::class);
     }
     
-    public function user()
+    public function publisher()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

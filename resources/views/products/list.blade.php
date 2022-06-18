@@ -40,14 +40,14 @@
                                     <td>{{ $no++ }}</td>
                                     <td><a href="{{ '/products/'.$product->id }}">{{ $product->name }}</a></td>
                                     <td><a href="{{ '/products/categories/'. $product->category->slug  }}">{{ $product->category->name }}</a></td>
-                                    <td><a href="#">{{ $product->user->name }}</a></td>
+                                    <td><a href="{{ '/products/publishers/'. $product->publisher->username }}">{{ $product->publisher->name }}</a></td>
                                     <td>{{ TimeFormater($product->created_at) }}</td>
                                     <td>{{ TimeFormater($product->updated_at) }}</td>
                                     <td>
-                                        <a href="{{ '/products/edit/'. $product->id }}" class="btn btn-warning mb-1">
+                                        <a href="{{ '/products/edit/'. $product->id }}" class="btn btn-sm btn-warning mb-1">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
-                                        <a href="{{ '/products/delete/'. $product->id }}" class="btn btn-danger mb-1">
+                                        <a href="{{ '/products/delete/'. $product->id }}" class="btn btn-sm btn-danger mb-1">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </td>

@@ -18,7 +18,8 @@ class ProductsController extends Controller
         return view('products/list', [
             'siteName' => 'Decorunic 3D Management',
             'title' => 'Product List',
-            'products' => Products::all()
+            // 'products' => Products::all()
+            'products' => Products::latest()->get()
         ]);
     }
 

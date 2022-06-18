@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductsController;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,6 +43,13 @@ Route::get('/products/categories/{category:slug}', function(Category $category){
         'title' => $category->name,
         'products' => $category->products,
         'category' => $category->name
+    ]);
+});
+Route::get('/products/publishers/{publisher:username}', function(User $publisher){
+    return view('products/list', [
+        'siteName' => 'Decorunic 3D Management',
+        'title' => 'Publisher Products: '.$publisher->name,
+        'products' => $publisher->products,
     ]);
 });
 Route::get('/products/add', [ProductsController::class, 'add']);

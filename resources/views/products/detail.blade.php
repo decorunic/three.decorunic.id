@@ -16,7 +16,7 @@
 									function TimeFormater($time) { return date('h:i, d/m/Y',strtotime($time));}
 							@endphp
 							Dibuat {{ TimeFormater($product->created_at) }} &bull; Diperbarui {{ TimeFormater($product->updated_at) }}
-							<a href="" class="ml-auto">{{ $product->user->name; }}</a>
+							<a href="{{ '/products/publishers/'. $product->publisher->username }}" class="ml-auto">{{ $product->publisher->name; }}</a>
 						</div>
 						<div class="card-body">
 			        <h3 class="card-title">
