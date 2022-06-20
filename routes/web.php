@@ -42,6 +42,7 @@ Route::get('/products/categories/{category:slug}', function(Category $category){
     return view('products/list', [
         'siteName' => 'Decorunic 3D Management',
         'title' => 'Products by Category: ' . $category->name,
+        'isActive' => 'Product Categories',
         'products' => $category->products->load('category', 'publisher'),
     ]);
 });
@@ -49,6 +50,7 @@ Route::get('/products/publishers/{publisher:username}', function(User $publisher
     return view('products/list', [
         'siteName' => 'Decorunic 3D Management',
         'title' => 'Products by Publisher: ' . $publisher->name,
+        'isActive' => 'Products by Publisher',
         'products' => $publisher->products->load('category', 'publisher'),
     ]);
 });
