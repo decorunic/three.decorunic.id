@@ -10,10 +10,15 @@ class AuthController extends Controller
 {
     public function index()
     {
-        return view('auth.index', [
+        return view('auth.login', [
             'siteName' => 'Decorunic 3D Management',
             'title' => 'Login'
         ]);
+    }
+
+    public function loginAuthenticate()
+    {
+        
     }
     
     public function register()
@@ -38,7 +43,7 @@ class AuthController extends Controller
         User::create($validatedData);
 
         // $request->session()->flash('message', 'Registration succesfull! Please login');
-        
+
         return redirect('/login')->with('message', 'Registration succesfull! Please login');
     }
 }

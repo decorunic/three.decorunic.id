@@ -15,12 +15,13 @@
         </button>
       </div>
       @endif
-      <form class="user">
+      <form class="user" action="/login" method="post">
+        @csrf
         <div class="form-group">
-          <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+          <input type="email" class="form-control form-control-user" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter Email Address..." autofocus required>
         </div>
         <div class="form-group">
-          <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+          <input type="password" class="form-control form-control-user" name="password" id="password" placeholder="Password" required>
         </div>
         <button type="submit" class="btn btn-primary btn-user btn-block">
           Login
