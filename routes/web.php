@@ -26,6 +26,9 @@ Route::get('/coba', function () {
 });
 
 Route::get('/', [AuthController::class, 'index']);
+Route::get('/login', [AuthController::class, 'index']);
+Route::get('/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'registerStore']);
 
 Route::get('/dashboard', [DashboardController::class, 'index']);
 
