@@ -41,14 +41,14 @@ Route::get('/products/categories/{category:slug}', function(Category $category){
     return view('products/list', [
         'siteName' => 'Decorunic 3D Management',
         'title' => 'Products by Category: ' . $category->name,
-        'products' => $category->products
+        'products' => $category->products->load('category', 'publisher'),
     ]);
 });
 Route::get('/products/publishers/{publisher:username}', function(User $publisher){
     return view('products/list', [
         'siteName' => 'Decorunic 3D Management',
         'title' => 'Products by Publisher: ' . $publisher->name,
-        'products' => $publisher->products,
+        'products' => $publisher->products->load('category', 'publisher'),
     ]);
 });
 Route::get('/products/add', [ProductsController::class, 'add']);
