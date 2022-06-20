@@ -18,8 +18,8 @@ class ProductsController extends Controller
         return view('products/list', [
             'siteName' => 'Decorunic 3D Management',
             'title' => 'Product List',
-            // 'products' => Products::all()
-            'products' => Products::with(['publisher', 'category'])->latest()->get()
+            'isActive' => 'Product List',
+            'products' => Products::latest()->get()
         ]);
     }
 
@@ -61,7 +61,8 @@ class ProductsController extends Controller
     {
         return view('products/add', [
             'siteName' => 'Decorunic 3D Management',
-            'title' => 'Product Add'
+            'title' => 'Product Add',
+            'isActive' => 'Product Add'
         ]);
     }
 

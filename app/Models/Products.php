@@ -11,6 +11,7 @@ class Products extends Model
 
     // protected $fillable = ['name', 'image_url', 'file'];
     protected $guarded = ['id'];
+    protected $with = ['category', 'publisher'];
 
     public function category()
     {

@@ -34,6 +34,7 @@ Route::get('/products/categories/', function(){
     return view('products/listCategory', [
         'siteName' => 'Decorunic 3D Management',
         'title' => 'Product Categories',
+        'isActive' => 'Product Categories',
         'categories' => Category::all()
     ]);
 });
