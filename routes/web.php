@@ -57,9 +57,9 @@ Route::get('/products/publishers/{publisher:username}', function(User $publisher
     ]);
 })->middleware('auth');
 Route::get('/products/add', [ProductsController::class, 'add'])->middleware('auth');
-Route::post('/products/save', [ProductsController::class, 'save'])->middleware('auth');
+Route::post('/products/add', [ProductsController::class, 'save'])->middleware('auth');
 Route::get('/products/edit/{id}', [ProductsController::class, 'edit'])->middleware('auth');
-Route::post('/products/update/{id}', [ProductsController::class, 'update'])->middleware('auth');
+Route::post('/products/edit/{id}', [ProductsController::class, 'update'])->middleware('auth');
 Route::get('/products/{id}', [ProductsController::class, 'products'])->middleware('auth');
 Route::get('/products/view-3d/{product:slug}', [ProductsController::class, 'view3D'])->middleware('auth');
 Route::get('/products/view-ar/{product:slug}', [ProductsController::class, 'viewAR'])->middleware('auth');
