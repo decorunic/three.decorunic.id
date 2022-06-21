@@ -10,7 +10,8 @@ class DashboardController extends Controller
     {
         return view('dashboard', [
             'siteName' => 'Decorunic 3D Management',
-            'title' => 'Dashboard'
+            'title' => 'Dashboard',
+            'isActive' => 'Dashboard'
         ]);
     }
 }
