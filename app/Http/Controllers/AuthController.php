@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -16,9 +17,30 @@ class AuthController extends Controller
         ]);
     }
 
-    public function loginAuthenticate()
+    public function loginAuthenticate(Request $request)
     {
+        $credentials = $request->validate([
+            'email' => ['required', 'email:dns'],
+            'password' => ['required']
+        ]);
+        // dd('berhasil login');
+        if(Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/dashboard');
+        }
+
+        return back()->with('messageFailed', 'Login failed!');
+    }
+
+    public function logoutAuthenticate()
+    {
+        Auth::logout();
+
+        request()->session()->invalidate();
         
+        request()->session()->regenerateToken();
+
+        return redirect('/');
     }
     
     public function register()
@@ -44,6 +66,6 @@ class AuthController extends Controller
 
         // $request->session()->flash('message', 'Registration succesfull! Please login');
 
-        return redirect('/login')->with('message', 'Registration succesfull! Please login');
+        return redirect('/login')->with('messageSuccess', 'Registration succesfull! Please login');
     }
 }

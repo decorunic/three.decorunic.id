@@ -7,9 +7,17 @@
       <div class="text-center">
         <h1 class="h4 text-gray-900 mb-4">Login Page</h1>
       </div>
-      @if(session()->has('message'))
+      @if(session()->has('messageSuccess'))
       <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ session('message') }}
+        {{ session('messageSuccess') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      @endif
+      @if(session()->has('messageFailed'))
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('messageFailed') }}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -18,7 +26,12 @@
       <form class="user" action="/login" method="post">
         @csrf
         <div class="form-group">
-          <input type="email" class="form-control form-control-user" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter Email Address..." autofocus required>
+          <input type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter Email Address..." autofocus required value="{{ old('email') }}">
+          @error('email')
+          <div class="invalid-feedback">
+            {{ $message }}
+          </div>
+          @enderror
         </div>
         <div class="form-group">
           <input type="password" class="form-control form-control-user" name="password" id="password" placeholder="Password" required>
