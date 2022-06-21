@@ -12,8 +12,8 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item {{ ($isActive === 'Dashboard') ? 'active' : ''}}">
-        <a class="nav-link" href="{{ '/dashboard' }}">
+    <li class="nav-item {{ (Request::is('/')) ? 'active' : ''}}">
+        <a class="nav-link" href="{{ '/' }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -23,18 +23,18 @@
         3D Model Management
     </div>
 
-    <li class="nav-item {{ (Request::segment(1) === 'products') ? 'active' : ''; }}">
-        <a class="nav-link {{ (Request::segment(1) === 'products') ? '' : 'collapsed'; }}" href="#" data-toggle="collapse" data-target="#collapseProducts"
+    <li class="nav-item {{ (Request::is('products/*')) ? 'active' : ''; }}">
+        <a class="nav-link {{ (Request::is('products/*')) ? '' : 'collapsed'; }}" href="#" data-toggle="collapse" data-target="#collapseProducts"
             aria-expanded="true" aria-controls="collapseProducts">
             <i class="fas fa-fw fa-box"></i>
             <span>Products</span>
         </a>
-        <div id="collapseProducts" class="collapse {{ (Request::segment(1) === 'products') ? 'show' : ''; }}" aria-labelledby="headingProducts" data-parent="#accordionSidebar">
+        <div id="collapseProducts" class="collapse {{ (Request::is('products/*')) ? 'show' : ''; }}" aria-labelledby="headingProducts" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Manage Products:</h6>
-                <a class="collapse-item {{ ($isActive === 'Product List') ? 'active' : '' }}" href="{{ '/products/list' }}">All</a>
-                <a class="collapse-item {{ ($isActive === 'Product Add') ? 'active' : '' }}" href="{{ '/products/add' }}">Add New</a>
-                <a class="collapse-item {{ ($isActive === 'Product Categories') ? 'active' : '' }}" href="{{ '/products/categories' }}">Categories</a>
+                <a class="collapse-item {{ (Request::is('products/*list')) ? 'active' : '' }}" href="{{ '/products/list' }}">All</a>
+                <a class="collapse-item {{ (Request::is('products/*add')) ? 'active' : '' }}" href="{{ '/products/add' }}">Add New</a>
+                <a class="collapse-item {{ (Request::is('products/*categories')) ? 'active' : '' }}" href="{{ '/products/categories' }}">Categories</a>
             </div>
         </div>
     </li>

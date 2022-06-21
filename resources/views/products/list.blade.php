@@ -32,12 +32,11 @@
                             </tfoot>
                             <tbody>
                                 @php
-                                $no = 1;
                                 function TimeFormater($time) { return date('H:i, d/m/Y',strtotime($time));}
                                 @endphp
                                 @foreach ($products as $product)
                                 <tr>
-                                    <td>{{ $no++ }}</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td><a href="{{ '/products/'.$product->id }}">{{ $product->name }}</a></td>
                                     <td><a href="{{ '/products/categories/'. $product->category->slug  }}">{{ $product->category->name }}</a></td>
                                     <td><a href="{{ '/products/publishers/'. $product->publisher->username }}">{{ $product->publisher->name }}</a></td>

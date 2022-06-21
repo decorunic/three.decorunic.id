@@ -27,20 +27,18 @@ Route::get('/coba', function () {
 });
 
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+// Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 Route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class, 'loginAuthenticate']);
 Route::post('/logout', [AuthController::class, 'logoutAuthenticate']);
 Route::get('/register', [AuthController::class, 'register'])->middleware('guest');
 Route::post('/register', [AuthController::class, 'registerStore']);
 
-
 Route::get('/products/list', [ProductsController::class, 'index'])->middleware('auth');
 Route::get('/products/categories/', function(){
     return view('products/listCategory', [
         'siteName' => 'Decorunic 3D Management',
         'title' => 'Product Categories',
-        'isActive' => 'Product Categories',
         'categories' => Category::all()
     ]);
 })->middleware('auth');
@@ -48,7 +46,6 @@ Route::get('/products/categories/{category:slug}', function(Category $category){
     return view('products/list', [
         'siteName' => 'Decorunic 3D Management',
         'title' => 'Products by Category: ' . $category->name,
-        'isActive' => 'Product Categories',
         'products' => $category->products->load('category', 'publisher'),
     ]);
 })->middleware('auth');
@@ -56,7 +53,6 @@ Route::get('/products/publishers/{publisher:username}', function(User $publisher
     return view('products/list', [
         'siteName' => 'Decorunic 3D Management',
         'title' => 'Products by Publisher: ' . $publisher->name,
-        'isActive' => 'Products by Publisher',
         'products' => $publisher->products->load('category', 'publisher'),
     ]);
 })->middleware('auth');

@@ -24,11 +24,10 @@
                             </tfoot>
                             <tbody>
                                 @php
-                                $no = 1;
                                 @endphp
                                 @foreach ($categories as $category)
                                 <tr>
-                                    <td>{{ $no++ }}</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td><a href="{{ '/products/categories/'. $category->slug }}">{{ $category->name }}</a></td>
                                     <td>{{ $category->slug }}</td>
                                 </tr>

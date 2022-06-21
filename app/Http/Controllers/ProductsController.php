@@ -18,8 +18,8 @@ class ProductsController extends Controller
         return view('products/list', [
             'siteName' => 'Decorunic 3D Management',
             'title' => 'Product List',
-            'isActive' => 'Product List',
             'products' => Products::latest()->get()
+            // 'products' => Products::where('user_id', auth()->user()->id)->latest()->get()
         ]);
     }
 
@@ -31,6 +31,7 @@ class ProductsController extends Controller
     public function products($id)
     {
         $product = Products::find($id);
+        // $product = Products::where('user_id', auth()->user()->id)->find($id);
 
         return view('products/detail', [
             'siteName' => 'Decorunic 3D Management',
@@ -62,7 +63,6 @@ class ProductsController extends Controller
         return view('products/add', [
             'siteName' => 'Decorunic 3D Management',
             'title' => 'Product Add',
-            'isActive' => 'Product Add'
         ]);
     }
 
