@@ -6,15 +6,11 @@ use App\Models\Products;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreProductsRequest;
 use App\Http\Requests\UpdateProductsRequest;
+use App\Models\Category;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class ProductsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return view('products/list', [
@@ -25,11 +21,6 @@ class ProductsController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function products($id)
     {
         $product = Products::find($id);
@@ -64,7 +55,6 @@ class ProductsController extends Controller
     {
         $slug = SlugService::createSlug(Products::class, 'slug', $request->name);
         return response()->json(['slug' => $slug]);
-        // dd($request);
     }
     
     public function add()
@@ -72,12 +62,25 @@ class ProductsController extends Controller
         return view('products/add', [
             'siteName' => 'Decorunic 3D Management',
             'title' => 'Product Add',
+            'categories' => Category::all()
         ]);
     }
 
-    public function save()
+    public function save(Request $request)
     {
-        
+        $validatedData = $request->validate([
+            'name' => ['required', 'max:255'],
+            'slug' => ['required','unique:products', 'max:255'],
+            'category_id' => ['required'],
+            'image_url' => ['required'],
+            'file' => ['required'],
+        ]);
+
+        $validatedData['user_id'] = auth()->user()->id;
+
+        Products::create($validatedData);
+
+        return redirect('/products/list')->with('messageSuccess', 'New product has been added');
     }
 
     public function edit($id)
