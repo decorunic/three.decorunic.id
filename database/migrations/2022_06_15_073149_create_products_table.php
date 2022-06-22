@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('image_url');
-            $table->string('file');
+            $table->string('file')->nullable();
             $table->timestamps();
         });
     }
