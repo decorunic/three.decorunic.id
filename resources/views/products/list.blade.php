@@ -2,6 +2,18 @@
 
 @section('container')
     <h1 class="h3 mb-4 text-gray-800">{{ $title }} <a href="{{ '/products/add' }}" class="btn btn-sm btn-outline-primary">Add New</a></h1>
+    @if (session()->has('messageSuccess'))
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('messageSuccess') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endif
     <div class="row">
         <div class="col-12 mb-3">
             <div class="card shadow mb-4">
@@ -43,12 +55,16 @@
                                     <td>{{ TimeFormater($product->created_at) }}</td>
                                     <td>{{ TimeFormater($product->updated_at) }}</td>
                                     <td>
-                                        <a href="{{ '/products/edit/'. $product->id }}" class="btn btn-sm btn-warning mb-1">
+                                        <a href="{{ '/products/'. $product->slug . '/edit' }}" class="btn btn-sm btn-warning mb-1">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
-                                        <a href="{{ '/products/delete/'. $product->id }}" class="btn btn-sm btn-danger mb-1">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                        <form action="{{ '/products/'. $product->id }}" method="post" class="d-inline">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="btn btn-sm btn-danger mb-1 b-0" onclick="return confirm('Are you sure?')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach
