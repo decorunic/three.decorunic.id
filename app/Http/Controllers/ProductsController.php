@@ -68,12 +68,14 @@ class ProductsController extends Controller
 
     public function save(Request $request)
     {
+        return $request->file('file')->store('models');
+
         $validatedData = $request->validate([
             'name' => ['required', 'max:255'],
             'slug' => ['required','unique:products', 'max:255'],
             'category_id' => ['required'],
             'image_url' => ['required'],
-            // 'file' => ['required'],
+            'file' => ['required'],
         ]);
 
         $validatedData['user_id'] = auth()->user()->id;
