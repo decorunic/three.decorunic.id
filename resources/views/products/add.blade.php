@@ -12,7 +12,7 @@
         </div>
         <div class="form-group">
           <label for="slug">Slug</label>
-          <input type="text" class="form-control" name="slug" id="slug" placeholder="e.g. Meja TV Minimalis Kekinian Ishana">
+          <input type="text" class="form-control" name="slug" id="slug" placeholder="e.g. meja-tv-minimalis-kekinian-ishana">
         </div>
         <div class="form-group">
           <label for="image_url">Image URL</label>
@@ -33,9 +33,11 @@
         const name = document.querySelector('#name');
         const slug = document.querySelector('#slug');
 
-        name.addEventlistener('change', () => {
-          fetch
-        })
+        name.addEventListener('change', function() {
+          fetch('/products/checkSlug?name=' + name.value)
+          .then(response => response.json())
+          .then(data => slug.value = data.slug)
+        });
       </script>
     </div>
   </div>

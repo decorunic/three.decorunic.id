@@ -56,6 +56,7 @@ Route::get('/products/publishers/{publisher:username}', function(User $publisher
         'products' => $publisher->products->load('category', 'publisher'),
     ]);
 })->middleware('auth');
+Route::get('/products/checkSlug', [ProductsController::class, 'checkSlug'])->middleware('auth');
 Route::get('/products/add', [ProductsController::class, 'add'])->middleware('auth');
 Route::post('/products/add', [ProductsController::class, 'save'])->middleware('auth');
 Route::get('/products/edit/{id}', [ProductsController::class, 'edit'])->middleware('auth');

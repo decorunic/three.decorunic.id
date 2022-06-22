@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Products;
 use App\Http\Requests\StoreProductsRequest;
 use App\Http\Requests\UpdateProductsRequest;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class ProductsController extends Controller
 {
@@ -56,6 +57,13 @@ class ProductsController extends Controller
             'title' => 'AR View '. $product,
             'product' => $product
         ]);
+    }
+
+    public function checkSlug(Request $request)
+    {
+        // $slug = SlugService::createSlug(Products::class, 'slug', $request->name);
+        // return response()->json(['slug' => $slug]);
+        dd($request);
     }
     
     public function add()
