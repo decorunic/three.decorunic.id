@@ -4,11 +4,12 @@
   <h1 class="h3 mb-4 text-gray-800">{{ $title }}</h1>
   <div class="row">
     <div class="col-12 col-lg-6 col-md-10 mb-3">
-      <form action="{{ '/products/add' }}" method="post" enctype="multipart/form-data">
+      <form action="{{ '/products/' . $product->slug }}" method="post" enctype="multipart/form-data">
+        @method('put')
         @csrf
         <div class="form-group">
           <label for="name">Name</label>
-          <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="e.g. Meja TV Minimalis Kekinian Ishana" value="{{ old('name') }}">
+          <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="e.g. Meja TV Minimalis Kekinian Ishana" value="{{ old('name', $product->name ) }}">
           @error('name')
             <div class="invalid-feedback">
               {{ $message }}
@@ -17,7 +18,7 @@
         </div>
         <div class="form-group">
           <label for="slug">Slug</label>
-          <input type="text" class="form-control @error('slug') is-invalid @enderror" name="slug" id="slug" placeholder="e.g. meja-tv-minimalis-kekinian-ishana" value="{{ old('slug') }}">
+          <input type="text" class="form-control @error('slug') is-invalid @enderror" name="slug" id="slug" placeholder="e.g. meja-tv-minimalis-kekinian-ishana" value="{{ old('slug', $product->slug ) }}">
           @error('slug')
             <div class="invalid-feedback">
               {{ $message }}
@@ -26,10 +27,10 @@
         </div>
         <div class="form-group">
           <label for="category">Category</label>
-          <select class="custom-select custom-select @error('category_id') is-invalid @enderror" name="category_id" id="category"  value="{{ old('category_id') }}">
+          <select class="custom-select custom-select @error('category_id') is-invalid @enderror" name="category_id" id="category">
             <option>Choose Category</option>
             @foreach ($categories as $category)
-              @if (old('category_id') == $category->id))
+              @if (old('category_id', $product->category_id) == $category->id))
                 <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
               @else
                 <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -39,7 +40,7 @@
         </div>
         <div class="form-group">
           <label for="image_url">Image URL</label>
-          <input type="text" class="form-control @error('image_url') is-invalid @enderror" name="image_url" id="image_url" placeholder="e.g. https://decorunic.id/wp-content/uploads/2021/10/2-7-scaled.jpg" value="{{ old('image_url') }}">
+          <input type="text" class="form-control @error('image_url') is-invalid @enderror" name="image_url" id="image_url" placeholder="e.g. https://decorunic.id/wp-content/uploads/2021/10/2-7-scaled.jpg" value="{{ old('image_url',  $product->image_url ) }}">
           @error('image_url')
             <div class="invalid-feedback">
               {{ $message }}
@@ -60,7 +61,7 @@
           </div>
         </div>
         <a href="{{ '/products/list' }}" class="btn btn-secondary">&larr; Back</a>
-        <button type="submit" class="btn btn-primary" id="submitbtn">Save</button>
+        <button type="submit" class="btn btn-primary" id="submitbtn">Update</button>
       </form>
       <script>
         const name = document.querySelector('#name');
@@ -77,7 +78,6 @@
           const filename = document.querySelector('.custom-file-label');
 
           filename.textContent = file.files[0].name;
-          console.log(file.files[0])
         }
       </script>
     </div>

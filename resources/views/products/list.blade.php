@@ -55,12 +55,16 @@
                                     <td>{{ TimeFormater($product->created_at) }}</td>
                                     <td>{{ TimeFormater($product->updated_at) }}</td>
                                     <td>
-                                        <a href="{{ '/products/edit/'. $product->id }}" class="btn btn-sm btn-warning mb-1">
+                                        <a href="{{ '/products/'. $product->slug . '/edit' }}" class="btn btn-sm btn-warning mb-1">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
-                                        <a href="{{ '/products/delete/'. $product->id }}" class="btn btn-sm btn-danger mb-1">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                        <form action="{{ '/products/'. $product->id }}" method="post" class="d-inline">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="btn btn-sm btn-danger mb-1 b-0" onclick="return confirm('Are you sure?')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach

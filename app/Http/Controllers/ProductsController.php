@@ -13,7 +13,7 @@ class ProductsController extends Controller
 {
     public function index()
     {
-        return view('products/list', [
+        return view('products.list', [
             'siteName' => 'Decorunic 3D Management',
             'title' => 'Product List',
             'products' => Products::latest()->get()
@@ -26,7 +26,7 @@ class ProductsController extends Controller
         $product = Products::find($id);
         // $product = Products::where('user_id', auth()->user()->id)->find($id);
 
-        return view('products/detail', [
+        return view('products.detail', [
             'siteName' => 'Decorunic 3D Management',
             'title' => 'Detail Produk '. $product['name'],
             'product' => $product,
@@ -35,7 +35,7 @@ class ProductsController extends Controller
     
     public function view3D(Products  $product)
     {
-        return view('products/view3d', [
+        return view('products.view3d', [
             'siteName' => 'Decorunic 3D Management',
             'title' => '3D View '. $product,
             'product' => $product
@@ -44,7 +44,7 @@ class ProductsController extends Controller
     
     public function viewAR(Products  $product)
     {
-        return view('products/viewar', [
+        return view('products.viewar', [
             'siteName' => 'Decorunic 3D Management',
             'title' => 'AR View '. $product,
             'product' => $product
@@ -59,7 +59,7 @@ class ProductsController extends Controller
     
     public function add()
     {
-        return view('products/add', [
+        return view('products.add', [
             'siteName' => 'Decorunic 3D Management',
             'title' => 'Product Add',
             'categories' => Category::all()
@@ -73,23 +73,52 @@ class ProductsController extends Controller
             'slug' => ['required','unique:products', 'max:255'],
             'category_id' => ['required'],
             'image_url' => ['required'],
-            'file' => ['required'],
+            // 'file' => ['required'],
         ]);
 
         $validatedData['user_id'] = auth()->user()->id;
 
         Products::create($validatedData);
 
-        return redirect('/products/list')->with('messageSuccess', 'New product has been added');
+        return redirect('/products/list')->with('messageSuccess', 'New product has been added!');
     }
 
-    public function edit($id)
+    public function delete(Products $product)
     {
-        return $id;
+        Products::destroy($product->id);
+        return redirect('/products/list')->with('messageSuccess', 'Product has been deleted!');
     }
 
-    public function update($id)
+    public function edit(Products $product)
     {
-        return $id;
+        return view('products.edit', [
+            'siteName' => 'Decorunic 3D Management',
+            'title' => 'Product Edit',
+            'product' => $product,
+            'categories' => Category::all()
+        ]);
+    }
+
+    public function update(Request $request, Products $product)
+    {
+        if($request->slug === $product->slug) {
+            $rules = [
+                'name' => ['required', 'max:255'],
+                'category_id' => ['required'],
+                'image_url' => ['required'],
+                // 'file' => ['required'],
+            ];
+        } else {
+            $rules['slug'] = ['required','unique:products', 'max:255'];
+        }
+        
+        $validatedData = $request->validate($rules);
+
+        $validatedData['user_id'] = auth()->user()->id;
+
+        Products::where('id', $product->id)
+        ->update($validatedData);
+
+        return redirect('/products/list')->with('messageSuccess', 'Product has been updated!');
     }
 }

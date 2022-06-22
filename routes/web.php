@@ -57,10 +57,19 @@ Route::get('/products/publishers/{publisher:username}', function(User $publisher
     ]);
 })->middleware('auth');
 Route::get('/products/checkSlug', [ProductsController::class, 'checkSlug'])->middleware('auth');
+
+// create
 Route::get('/products/add', [ProductsController::class, 'add'])->middleware('auth');
 Route::post('/products/add', [ProductsController::class, 'save'])->middleware('auth');
-Route::get('/products/edit/{id}', [ProductsController::class, 'edit'])->middleware('auth');
-Route::post('/products/edit/{id}', [ProductsController::class, 'update'])->middleware('auth');
-Route::get('/products/{id}', [ProductsController::class, 'products'])->middleware('auth');
+
+// read
+Route::get('/products/{product:id}', [ProductsController::class, 'products'])->middleware('auth');
 Route::get('/products/view-3d/{product:slug}', [ProductsController::class, 'view3D'])->middleware('auth');
 Route::get('/products/view-ar/{product:slug}', [ProductsController::class, 'viewAR'])->middleware('auth');
+
+// update
+Route::get('/products/{product:slug}/edit', [ProductsController::class, 'edit'])->middleware('auth');
+Route::put('/products/{product:slug}', [ProductsController::class, 'update'])->middleware('auth');
+
+// delete
+Route::delete('/products/{product:id}', [ProductsController::class, 'delete'])->middleware('auth');

@@ -8,7 +8,7 @@
       <div class="card shadow mb-3">
 			  <div class="row no-gutters">
 			    <div class="col-lg-5">
-			      <img src="{{ $product->image_url }}" class="card-img h-100" alt="{{ $product->name }}">
+			      <img src="{{ $product->image_url }}" class="card-img h-100" style="object-fit: cover" alt="{{ $product->name }}">
 			    </div>
 			    <div class="col-lg-7">
 						<div class="card-header small text-muted d-flex">
@@ -52,12 +52,16 @@
               <p>
 			      </div>
 						<div class="card-footer">
-							<a href="{{ '/products/edit/'. $product->id }}" class="btn btn-warning">
+							<a href="{{ '/products/'. $product->slug . '/edit' }}" class="btn btn-warning">
 									<i class="fas fa-pencil-alt"></i>
 							</a>
-							<a href="{{ '/products/delete/'. $product->id }}" class="btn btn-danger" onclick="return confirm('Are you sure?')">
-									<i class="fas fa-trash"></i>
-							</a>
+							<form action="{{ '/products/'. $product->id }}" method="post" class="d-inline">
+								@method('delete')
+								@csrf
+								<button class="btn btn-danger b-0" onclick="return confirm('Are you sure?')">
+										<i class="fas fa-trash"></i>
+								</button>
+							</form>
 						</div>
 			    </div>
 			  </div>
