@@ -4,6 +4,9 @@ import { GLTFLoader } from '../../vendor/three/examples/jsm/loaders/GLTFLoader.j
 import { DRACOLoader } from '../../vendor/three/examples/jsm/loaders/DRACOLoader.js';
 import { RoomEnvironment } from '../../vendor/environments/RoomEnvironment.js';
 
+// Get 3dfile
+const file3d = document.querySelector('#file3d');
+
 // Canvas
 const canvas = document.querySelector('.result');
 // Scene
@@ -19,7 +22,7 @@ gltfLoader.setDRACOLoader(dracoLoader);
 
 let mixer = null;
 let product = null;
-gltfLoader.load(`/models/ishana.glb`, (glb) => {
+gltfLoader.load(`${file3d.value}`, (glb) => {
   product = glb;
   mixer = new THREE.AnimationMixer(product.scene);
   const clips = glb.animations;

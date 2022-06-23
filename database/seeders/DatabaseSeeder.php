@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
             'slug' => 'meja-tamu'
         ]);
 
-        Products::factory(25)->create();
+        Products::factory(10)->create();
         
         // Products::create([
         //     'name' => 'Meja TV Minimalis Kekinian Ishana - TV Table Modern Multifungsi',
