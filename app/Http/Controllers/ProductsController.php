@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use \Cviebrock\EloquentSluggable\Services\SlugService;
-use \Illuminate\Support\Str;
+use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Products;
 use App\Models\Category;
@@ -78,7 +79,6 @@ class ProductsController extends Controller
             'name' => ['required', 'max:255'],
             'slug' => ['required','unique:products', 'max:255'],
             'category_id' => ['required'],
-            'image_url' => ['required'],
             'file' => ['required'],
         ]);
 
@@ -117,15 +117,24 @@ class ProductsController extends Controller
         if($request->slug === $product->slug) {
             $rules = [
                 'name' => ['required', 'max:255'],
-                'category_id' => ['required'],
-                'image_url' => ['required'],
-                // 'file' => ['required'],
+                'category_id' => ['required']
             ];
         } else {
             $rules['slug'] = ['required','unique:products', 'max:255'];
         }
         
         $validatedData = $request->validate($rules);
+
+        if ($request->file('file')) {
+            $filename =  $request->file('file')->getClientOriginalName();
+            $path = $request->file('file')->storeAs(
+                'models', $filename
+            );
+            if ($request->oldFile){
+                Storage::delete($request->oldFile);
+            }
+            $validatedData['file'] = $path;
+        }
 
         $validatedData['user_id'] = auth()->user()->id;
 

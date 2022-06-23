@@ -41,14 +41,15 @@
         <div class="form-group">
           <label for="file">3D File</label>
           <div class="custom-file">
-            <input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="file" accept=".glb" onchange="previewFilename()">
+            <input type="hidden" name="oldFile" value="{{ $product->file }}">
+            <input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="file" accept=".glb" onchange="previewModel()">
             @error('file')
               <div class="invalid-feedback">
                 {{ $message }}
               </div>
             @enderror
             <small id="fileHelp" class="form-text text-muted">Only accepts <b>.glb</b> file format</small>
-            <label class="custom-file-label" for="file">Choose file</label>
+            <label class="custom-file-label" for="file">{{ ($product->file) ? substr($product->file, 7) : 'Choose file' }}</label>
           </div>
         </div>
         <a href="{{ '/products/list' }}" class="btn btn-secondary">&larr; Back</a>
@@ -64,7 +65,7 @@
           .then(data => slug.value = data.slug)
         });
 
-        const previewFilename = () => {
+        const previewModel = () => {
           const file = document.querySelector('#file');
           const filename = document.querySelector('.custom-file-label');
 

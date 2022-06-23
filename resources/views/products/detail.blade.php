@@ -7,8 +7,8 @@
     <div class="col-12 mb-3">
       <div class="card shadow mb-3">
 			  <div class="row no-gutters">
-			    <div class="col-lg-5">
-						<iframe class="card-img h-100" style="object-fit: cover" title="lisa" src="{{ URL::to('/products/view-3d/' . $product->slug)}}" frameborder="0" allowfullscreen="allowfullscreen" style="width:100"></iframe>
+			    <div class="col-lg-5" style="min-height: 60vh">
+						<iframe class="card-img w-100 h-100" style="object-fit: cover" title="lisa" src="{{ URL::to('/products/view-3d/' . $product->slug)}}" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
 			    </div>
 			    <div class="col-lg-7">
 						<div class="card-header small text-muted d-flex">

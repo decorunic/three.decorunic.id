@@ -40,7 +40,7 @@
         <div class="form-group">
           <label for="file">3D File</label>
           <div class="custom-file">
-            <input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="file" accept=".glb" onchange="previewFilename()">
+            <input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="file" accept=".glb" onchange="previewModel()">
             @error('file')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -63,14 +63,49 @@
           .then(data => slug.value = data.slug)
         });
 
-        const previewFilename = () => {
+        const previewModel = () => {
           const file = document.querySelector('#file');
           const filename = document.querySelector('.custom-file-label');
 
           filename.textContent = file.files[0].name;
-          console.log(file.files[0])
+          // console.log(file.files[0])
         }
       </script>
+      <script type="importmap">
+        {
+          "imports": {
+            "three": "/vendor/three/src/Three.js"
+          }
+        }
+      </script>
+      <script type="x-shader/x-vertex" id="vertexShader">
+        varying vec3 vWorldPosition;
+      
+        void main() {
+      
+          vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
+          vWorldPosition = worldPosition.xyz;
+      
+          gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+      
+        }
+      </script>
+      <script type="x-shader/x-fragment" id="fragmentShader">
+        uniform vec3 topColor;
+        uniform vec3 bottomColor;
+        uniform float offset;
+        uniform float exponent;
+      
+        varying vec3 vWorldPosition;
+      
+        void main() {
+      
+          float h = normalize( vWorldPosition + offset ).y;
+          gl_FragColor = vec4( mix( bottomColor, topColor, max( pow( max( h, 0.0 ), exponent ), 0.0 ) ), 1.0 );
+      
+        }
+      </script>
+      <script type="module" src="{{ '/js/3dview/preview.js' }}"></script>
     </div>
   </div>
 @endsection
