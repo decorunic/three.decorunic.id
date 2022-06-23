@@ -19,7 +19,6 @@ class CreateProductsTable extends Migration
             $table->foreignId('user_id');
             $table->string('name');
             $table->string('slug');
-            $table->string('image_url');
             $table->string('file')->nullable();
             $table->timestamps();
         });

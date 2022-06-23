@@ -8,7 +8,7 @@
         @csrf
         <div class="form-group">
           <label for="name">Name</label>
-          <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="e.g. Meja TV Minimalis Kekinian Ishana" value="{{ old('name') }}">
+          <input type="text" class="form-control @error('name') is-invalid @enderror)" name="name" id="name" placeholder="e.g. Meja TV Minimalis Kekinian Ishana" value="{{ old('name') }}">
           @error('name')
             <div class="invalid-feedback">
               {{ $message }}
