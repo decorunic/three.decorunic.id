@@ -39,15 +39,6 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="image_url">Image URL</label>
-          <input type="text" class="form-control @error('image_url') is-invalid @enderror" name="image_url" id="image_url" placeholder="e.g. https://decorunic.id/wp-content/uploads/2021/10/2-7-scaled.jpg" value="{{ old('image_url',  $product->image_url ) }}">
-          @error('image_url')
-            <div class="invalid-feedback">
-              {{ $message }}
-            </div>
-          @enderror
-        </div>
-        <div class="form-group">
           <label for="file">3D File</label>
           <div class="custom-file">
             <input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="file" accept=".glb" onchange="previewFilename()">

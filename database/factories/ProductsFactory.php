@@ -18,8 +18,7 @@ class ProductsFactory extends Factory
             'category_id' => mt_rand(1, 2),
             'user_id' => mt_rand(1, 3),
             'slug' => $this->faker->slug(),
-            'image_url' => $this->faker->imageUrl(640, 480, 'Decorunic Product', true),
-            'file' => 'ishana.glb'
+            'file' => 'models/ishana.glb'
         ];
     }
 }

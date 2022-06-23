@@ -8,7 +8,7 @@
       <div class="card shadow mb-3">
 			  <div class="row no-gutters">
 			    <div class="col-lg-5">
-			      <img src="{{ $product->image_url }}" class="card-img h-100" style="object-fit: cover" alt="{{ $product->name }}">
+						<iframe class="card-img h-100" style="object-fit: cover" title="lisa" src="{{ URL::to('/products/view-3d/' . $product->slug)}}" frameborder="0" allowfullscreen="allowfullscreen" style="width:100"></iframe>
 			    </div>
 			    <div class="col-lg-7">
 						<div class="card-header small text-muted d-flex">
@@ -35,15 +35,15 @@
 											<link rel="stylesheet" href="{{ '/vendor/prism/prism.css' }}">
 											<div class="tab-pane fade show active" id="nav-view-3d" role="tabpanel" aria-labelledby="nav-view-3d-tab">
 												<pre>
-													<code class="language-html">&lt;iframe title="lisa" src="{{ URL::to('/products/view-3d/' . $product->id)}}" frameborder="0" allowfullscreen="allowfullscreen" style="width:100%; height:264px">&lt;/iframe&gt;</code>
+													<code class="language-html">&lt;iframe title="lisa" src="{{ URL::to('/products/view-3d/' . $product->slug)}}" frameborder="0" allowfullscreen="allowfullscreen" style="width:100%; height:264px">&lt;/iframe&gt;</code>
 												</pre>
-												<a href="{{ '/products/view-3d/'. $product->slug }}" class="btn btn-info">View 3D</a>
+												<a href="{{ '/products/view-3d/'. $product->slug }}" target="_blank" rel="noreferrer" class="btn btn-info"><i class="fas fa-eye"></i> New Tab</a>
 											</div>
 											<div class="tab-pane fade" id="nav-view-ar" role="tabpanel" aria-labelledby="nav-view-ar-tab">
 												<pre>
 													<code class="language-html">&lt;iframe title="lisa" src="{{ URL::to('/products/view-ar/' . $product->id)}}" frameborder="0" allowfullscreen="allowfullscreen" style="width:100%; height:264px">&lt;/iframe&gt;</code>
 												</pre>
-												<a href="{{ '/products/view-ar/'. $product->slug }}" class="btn btn-info">View AR</a>
+												<a href="{{ '/products/view-ar/'. $product->slug }}" target="_blank" rel="noreferrer" class="btn btn-info"><i class="fas fa-eye"></i> New Tab</a>
 											</div>
 											<script src="{{ '/vendor/prism/prism.js' }}"></script>
 										</div>

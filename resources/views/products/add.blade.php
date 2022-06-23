@@ -8,7 +8,7 @@
         @csrf
         <div class="form-group">
           <label for="name">Name</label>
-          <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="e.g. Meja TV Minimalis Kekinian Ishana" value="{{ old('name') }}">
+          <input type="text" class="form-control @error('name') is-invalid @enderror)" name="name" id="name" placeholder="e.g. Meja TV Minimalis Kekinian Ishana" value="{{ old('name') }}">
           @error('name')
             <div class="invalid-feedback">
               {{ $message }}
@@ -36,15 +36,6 @@
               @endif
             @endforeach
           </select>
-        </div>
-        <div class="form-group">
-          <label for="image_url">Image URL</label>
-          <input type="text" class="form-control @error('image_url') is-invalid @enderror" name="image_url" id="image_url" placeholder="e.g. https://decorunic.id/wp-content/uploads/2021/10/2-7-scaled.jpg" value="{{ old('image_url') }}">
-          @error('image_url')
-            <div class="invalid-feedback">
-              {{ $message }}
-            </div>
-          @enderror
         </div>
         <div class="form-group">
           <label for="file">3D File</label>

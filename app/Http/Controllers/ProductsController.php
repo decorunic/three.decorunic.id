@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Products;
 use Illuminate\Http\Request;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
+use \Illuminate\Support\Str;
+
+use App\Models\Products;
+use App\Models\Category;
+
 use App\Http\Requests\StoreProductsRequest;
 use App\Http\Requests\UpdateProductsRequest;
-use App\Models\Category;
-use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class ProductsController extends Controller
 {
@@ -68,7 +71,8 @@ class ProductsController extends Controller
 
     public function save(Request $request)
     {
-        return $request->file('file')->store('models');
+        // return $request->file('file')->store('models');
+        // dd(strtolower($request->file('file')->getClientOriginalExtension()));
 
         $validatedData = $request->validate([
             'name' => ['required', 'max:255'],
@@ -79,6 +83,13 @@ class ProductsController extends Controller
         ]);
 
         $validatedData['user_id'] = auth()->user()->id;
+
+        $extension = strtolower($request->file('file')->getClientOriginalExtension());
+        // if ($extension !== 'glb') {}
+        $path = $request->file('file')->storeAs(
+            'models', Str::random(40) . '.' . $extension
+        );
+        $validatedData['file'] = $path;
 
         Products::create($validatedData);
 
