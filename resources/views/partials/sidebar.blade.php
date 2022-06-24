@@ -3,13 +3,12 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ '/' }}">
         <div class="sidebar-brand-icon">
-            <i class="fas fa-vr-cardboard"></i>
+            <img src="{{ '/img/logo.jpg' }}" class="w-100 h-100" alt="logo decorunic">
         </div>
-        <div class="sidebar-brand-text ml-3">3D Decorunic</div>
+        <div class="sidebar-brand-text ml-3">
+            Decorunic
+        </div>
     </a>
-
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item {{ (Request::is('/')) ? 'active' : ''}}">
