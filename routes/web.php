@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductsController;
 use App\Models\Category;
@@ -20,21 +21,23 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 */
 
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
-// Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 Route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class, 'loginAuthenticate']);
 Route::post('/logout', [AuthController::class, 'logoutAuthenticate']);
 // Route::get('/register', [AuthController::class, 'register'])->middleware('guest');
 // Route::post('/register', [AuthController::class, 'registerStore']);
 
+Route::get('/products/checkSlug', [ProductsController::class, 'checkSlug'])->middleware('auth');
+
+// create
+Route::get('/products/add', [ProductsController::class, 'add'])->middleware('auth');
+Route::post('/products/add', [ProductsController::class, 'save'])->middleware('auth');
+Route::get('/categories/add', [CategoryController::class, 'add'])->middleware('auth');
+Route::post('/categories/add', [CategoryController::class, 'save'])->middleware('auth');
+
+// read
 Route::get('/products/list', [ProductsController::class, 'index'])->middleware('auth');
-Route::get('/products/categories/', function(){
-    return view('products/listCategory', [
-        'siteName' => 'Decorunic 3D Management',
-        'title' => 'Product Categories',
-        'categories' => Category::all()
-    ]);
-})->middleware('auth');
+Route::get('/products/categories/', [CategoryController::class, 'index'])->middleware('auth');
 Route::get('/products/categories/{category:slug}', function(Category $category){
     return view('products/list', [
         'siteName' => 'Decorunic 3D Management',
@@ -49,13 +52,6 @@ Route::get('/products/publishers/{publisher:username}', function(User $publisher
         'products' => $publisher->products->load('category', 'publisher'),
     ]);
 })->middleware('auth');
-Route::get('/products/checkSlug', [ProductsController::class, 'checkSlug'])->middleware('auth');
-
-// create
-Route::get('/products/add', [ProductsController::class, 'add'])->middleware('auth');
-Route::post('/products/add', [ProductsController::class, 'save'])->middleware('auth');
-
-// read
 Route::get('/products/{product:slug}', [ProductsController::class, 'products'])->middleware('auth');
 Route::get('/products/view-3d/{product:slug}', [ProductsController::class, 'view3D']);
 Route::get('/products/view-ar/{product:slug}', [ProductsController::class, 'viewAR']);
@@ -63,6 +59,9 @@ Route::get('/products/view-ar/{product:slug}', [ProductsController::class, 'view
 // update
 Route::get('/products/{product:slug}/edit', [ProductsController::class, 'edit'])->middleware('auth');
 Route::put('/products/{product:slug}', [ProductsController::class, 'update'])->middleware('auth');
+Route::get('/categories/{category:slug}/edit', [CategoryController::class, 'edit'])->middleware('auth');
+Route::put('/categories/{category:slug}', [CategoryController::class, 'update'])->middleware('auth');
 
 // delete
 Route::delete('/products/{product:id}', [ProductsController::class, 'delete'])->middleware('auth');
+Route::delete('/categories/{category:id}', [CategoryController::class, 'delete'])->middleware('auth');

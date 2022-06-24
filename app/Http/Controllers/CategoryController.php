@@ -3,84 +3,72 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Http\Requests\StoreCategoryRequest;
-use App\Http\Requests\UpdateCategoryRequest;
+use App\Models\Products;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        return view('categories/list', [
+            'siteName' => 'Decorunic 3D Management',
+            'title' => 'Product Category',
+            'categories' => Category::all()
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function add()
     {
-        //
+        return view('categories.add', [
+            'siteName' => 'Decorunic 3D Management',
+            'title' => 'Category Add'
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreCategoryRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreCategoryRequest $request)
+    public function save(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => ['required', 'max:255'],
+            'slug' => ['required','unique:categories', 'max:255']
+        ]);
+
+        Category::create($validatedData);
+
+        return redirect('/products/categories')->with('messageSuccess', 'New category has been added!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Category $category)
     {
-        //
+        return view('categories.edit', [
+            'siteName' => 'Decorunic 3D Management',
+            'title' => 'Category Edit',
+            'category' => $category
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateCategoryRequest  $request
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(Request $request, Category $category)
     {
-        //
-    }
+        if($request->slug === $category->slug) {
+            $rules = [
+                'name' => ['required', 'max:255']
+            ];
+        } else {
+            $rules['slug'] = ['required','unique:categories', 'max:255'];
+        }
+        
+        $validatedData = $request->validate($rules);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Category $category)
+        Category::where('id', $category->id)
+        ->update($validatedData);
+
+        return redirect('/products/categories')->with('messageSuccess', 'Category has been updated!');
+    }
+    
+    public function delete(Products $product, Category $category)
     {
-        //
+        dd(Products::where('category_id', Category::get('id'))->count());
+
+        Category::destroy($category->id);
+        return redirect('/products/categories')->with('messageSuccess', 'Category has been deleted!');
     }
 }
