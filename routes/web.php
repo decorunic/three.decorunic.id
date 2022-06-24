@@ -57,8 +57,8 @@ Route::post('/products/add', [ProductsController::class, 'save'])->middleware('a
 
 // read
 Route::get('/products/{product:slug}', [ProductsController::class, 'products'])->middleware('auth');
-Route::get('/products/view-3d/{product:slug}', [ProductsController::class, 'view3D'])->middleware('auth');
-Route::get('/products/view-ar/{product:slug}', [ProductsController::class, 'viewAR'])->middleware('auth');
+Route::get('/products/view-3d/{product:slug}', [ProductsController::class, 'view3D']);
+Route::get('/products/view-ar/{product:slug}', [ProductsController::class, 'viewAR']);
 
 // update
 Route::get('/products/{product:slug}/edit', [ProductsController::class, 'edit'])->middleware('auth');
