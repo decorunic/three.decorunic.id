@@ -19,20 +19,13 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
-Route::get('/coba', function () {
-    return view('coba', [
-        'siteName' => 'Decorunic AR Management',
-        'title' => 'Coba'
-    ]);
-});
-
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
 // Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 Route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class, 'loginAuthenticate']);
 Route::post('/logout', [AuthController::class, 'logoutAuthenticate']);
-Route::get('/register', [AuthController::class, 'register'])->middleware('guest');
-Route::post('/register', [AuthController::class, 'registerStore']);
+// Route::get('/register', [AuthController::class, 'register'])->middleware('guest');
+// Route::post('/register', [AuthController::class, 'registerStore']);
 
 Route::get('/products/list', [ProductsController::class, 'index'])->middleware('auth');
 Route::get('/products/categories/', function(){
@@ -63,7 +56,7 @@ Route::get('/products/add', [ProductsController::class, 'add'])->middleware('aut
 Route::post('/products/add', [ProductsController::class, 'save'])->middleware('auth');
 
 // read
-Route::get('/products/{product:id}', [ProductsController::class, 'products'])->middleware('auth');
+Route::get('/products/{product:slug}', [ProductsController::class, 'products'])->middleware('auth');
 Route::get('/products/view-3d/{product:slug}', [ProductsController::class, 'view3D'])->middleware('auth');
 Route::get('/products/view-ar/{product:slug}', [ProductsController::class, 'viewAR'])->middleware('auth');
 

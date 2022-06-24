@@ -25,9 +25,9 @@ class ProductsController extends Controller
         ]);
     }
 
-    public function products($id)
+    public function products(Products $product)
     {
-        $product = Products::find($id);
+        // $product = Products::find($id);
         // $product = Products::where('user_id', auth()->user()->id)->find($id);
 
         return view('products.detail', [
@@ -72,9 +72,6 @@ class ProductsController extends Controller
 
     public function save(Request $request)
     {
-        // return $request->file('file')->store('models');
-        // dd(strtolower($request->file('file')->getClientOriginalExtension()));
-
         $validatedData = $request->validate([
             'name' => ['required', 'max:255'],
             'slug' => ['required','unique:products', 'max:255'],
@@ -85,7 +82,6 @@ class ProductsController extends Controller
         $validatedData['user_id'] = auth()->user()->id;
 
         $extension = strtolower($request->file('file')->getClientOriginalExtension());
-        // if ($extension !== 'glb') {}
         $path = $request->file('file')->storeAs(
             'models', Str::random(40) . '.' . $extension
         );
@@ -98,6 +94,10 @@ class ProductsController extends Controller
 
     public function delete(Products $product)
     {
+        if($product->file) {
+            Storage::delete($product->file);
+        }
+
         Products::destroy($product->id);
         return redirect('/products/list')->with('messageSuccess', 'Product has been deleted!');
     }

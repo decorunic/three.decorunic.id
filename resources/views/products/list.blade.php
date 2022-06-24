@@ -49,7 +49,7 @@
                                 @foreach ($products as $product)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td><a href="{{ '/products/'.$product->id }}">{{ $product->name }}</a></td>
+                                    <td><a href="{{ '/products/'.$product->slug }}">{{ $product->name }}</a></td>
                                     <td><a href="{{ '/products/categories/'. $product->category->slug  }}">{{ $product->category->name }}</a></td>
                                     <td><a href="{{ '/products/publishers/'. $product->publisher->username }}">{{ $product->publisher->name }}</a></td>
                                     <td>{{ TimeFormater($product->created_at) }}</td>

@@ -26,7 +26,7 @@ class AuthController extends Controller
         // dd('berhasil login');
         if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/');
         }
 
         return back()->with('messageFailed', 'Login failed!');
@@ -43,29 +43,29 @@ class AuthController extends Controller
         return redirect('/');
     }
     
-    public function register()
-    {
-        return view('auth.register', [
-            'siteName' => 'Decorunic 3D Management',
-            'title' => 'Register'
-        ]);
-    }
+    // public function register()
+    // {
+    //     return view('auth.register', [
+    //         'siteName' => 'Decorunic 3D Management',
+    //         'title' => 'Register'
+    //     ]);
+    // }
 
-    public function registerStore(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => ['required', 'max:255'],
-            'username' => ['required', 'min:5', 'max:255', 'unique:users'],
-            'email' => ['required', 'email:dns', 'unique:users'],
-            'password' => ['required', 'confirmed', 'min:8', 'max:255'],
-        ]);
+    // public function registerStore(Request $request)
+    // {
+    //     $validatedData = $request->validate([
+    //         'name' => ['required', 'max:255'],
+    //         'username' => ['required', 'min:5', 'max:255', 'unique:users'],
+    //         'email' => ['required', 'email:dns', 'unique:users'],
+    //         'password' => ['required', 'confirmed', 'min:8', 'max:255'],
+    //     ]);
 
-        $validatedData['password'] = Hash::make($validatedData['password']);
+    //     $validatedData['password'] = Hash::make($validatedData['password']);
 
-        User::create($validatedData);
+    //     User::create($validatedData);
 
-        // $request->session()->flash('message', 'Registration succesfull! Please login');
+    //     // $request->session()->flash('message', 'Registration succesfull! Please login');
 
-        return redirect('/login')->with('messageSuccess', 'Registration succesfull! Please login');
-    }
+    //     return redirect('/login')->with('messageSuccess', 'Registration succesfull! Please login');
+    // }
 }
