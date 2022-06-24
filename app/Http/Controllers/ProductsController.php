@@ -81,10 +81,13 @@ class ProductsController extends Controller
 
         $validatedData['user_id'] = auth()->user()->id;
 
-        $extension = strtolower($request->file('file')->getClientOriginalExtension());
+        $filename =  $request->file('file')->getClientOriginalName();
         $path = $request->file('file')->storeAs(
-            'models', Str::random(40) . '.' . $extension
+            'models', $filename
         );
+        if ($request->oldFile){
+            Storage::delete($request->oldFile);
+        }
         $validatedData['file'] = $path;
 
         Products::create($validatedData);
