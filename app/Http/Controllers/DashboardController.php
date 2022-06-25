@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Category;
+use App\Models\Products;
+
 class DashboardController extends Controller
 {
     public function index()
@@ -11,7 +14,8 @@ class DashboardController extends Controller
         return view('dashboard', [
             'siteName' => 'Decorunic 3D Management',
             'title' => 'Dashboard',
-            'isActive' => 'Dashboard'
+            'countProduct' => Products::count(),
+            'countCategory' => Category::count()
         ]);
     }
 }

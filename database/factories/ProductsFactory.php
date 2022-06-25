@@ -15,7 +15,7 @@ class ProductsFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence(mt_rand(2, 10)),
-            'category_id' => mt_rand(1, 2),
+            'category_id' => mt_rand(1, 3),
             'user_id' => mt_rand(1, 3),
             'slug' => $this->faker->slug(),
             'file' => 'models/ishana.glb'

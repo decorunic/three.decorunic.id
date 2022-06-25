@@ -1,12 +1,23 @@
 @extends('layouts.main')
-
 @section('container')
-    <h1 class="h3 mb-4 text-gray-800">{{ $title }} <a href="{{ '/products/add' }}" class="btn btn-sm btn-outline-primary">Add New</a></h1>
+    <h1 class="h3 mb-4 text-gray-800">{{ $title }} <a href="{{ '/categories/add' }}" class="btn btn-sm btn-outline-primary">Add New</a></h1>
     @if (session()->has('messageSuccess'))
         <div class="row">
             <div class="col-12">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('messageSuccess') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endif
+    @if (session()->has('messageFail'))
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('messageFail') }}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -24,10 +35,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Category</th>
-                                    <th>Publisher</th>
-                                    <th>Created At</th>
-                                    <th>Updated At</th>
+                                    <th>Slug</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -35,30 +43,23 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Category</th>
-                                    <th>Publisher</th>
-                                    <th>Created at</th>
-                                    <th>Updated at</th>
+                                    <th>Slug</th>
                                     <th>Action</th>
                                 </tr>
                             </tfoot>
                             <tbody>
                                 @php
-                                function TimeFormater($time) { return date('H:i, d/m/Y',strtotime($time));}
                                 @endphp
-                                @foreach ($products as $product)
+                                @foreach ($categories as $category)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td><a href="{{ '/products/'.$product->slug }}">{{ $product->name }}</a></td>
-                                    <td><a href="{{ '/products/categories/'. $product->category->slug  }}">{{ $product->category->name }}</a></td>
-                                    <td><a href="{{ '/products/publishers/'. $product->publisher->username }}">{{ $product->publisher->name }}</a></td>
-                                    <td>{{ TimeFormater($product->created_at) }}</td>
-                                    <td>{{ TimeFormater($product->updated_at) }}</td>
+                                    <td><a href="{{ '/products/categories/'. $category->slug }}">{{ $category->name }}</a></td>
+                                    <td>{{ $category->slug }}</td>
                                     <td>
-                                        <a href="{{ '/products/'. $product->slug . '/edit' }}" class="btn btn-sm btn-warning mb-1">
+                                        <a href="{{ '/categories/'. $category->slug . '/edit' }}" class="btn btn-sm btn-warning mb-1">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
-                                        <form action="{{ '/products/'. $product->id }}" method="post" class="d-inline">
+                                        <form action="{{ '/categories/'. $category->id }}" method="post" class="d-inline">
                                             @method('delete')
                                             @csrf
                                             <button class="btn btn-sm btn-danger mb-1 b-0" onclick="return confirm('Are you sure?')">

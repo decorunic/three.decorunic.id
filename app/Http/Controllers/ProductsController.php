@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use \Cviebrock\EloquentSluggable\Services\SlugService;
-use \Illuminate\Support\Str;
+use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Products;
 use App\Models\Category;
@@ -24,9 +25,9 @@ class ProductsController extends Controller
         ]);
     }
 
-    public function products($id)
+    public function products(Products $product)
     {
-        $product = Products::find($id);
+        // $product = Products::find($id);
         // $product = Products::where('user_id', auth()->user()->id)->find($id);
 
         return view('products.detail', [
@@ -71,24 +72,22 @@ class ProductsController extends Controller
 
     public function save(Request $request)
     {
-        // return $request->file('file')->store('models');
-        // dd(strtolower($request->file('file')->getClientOriginalExtension()));
-
         $validatedData = $request->validate([
             'name' => ['required', 'max:255'],
             'slug' => ['required','unique:products', 'max:255'],
             'category_id' => ['required'],
-            'image_url' => ['required'],
             'file' => ['required'],
         ]);
 
         $validatedData['user_id'] = auth()->user()->id;
 
-        $extension = strtolower($request->file('file')->getClientOriginalExtension());
-        // if ($extension !== 'glb') {}
+        $filename =  $request->file('file')->getClientOriginalName();
         $path = $request->file('file')->storeAs(
-            'models', Str::random(40) . '.' . $extension
+            'models', $filename
         );
+        if ($request->oldFile){
+            Storage::delete($request->oldFile);
+        }
         $validatedData['file'] = $path;
 
         Products::create($validatedData);
@@ -98,6 +97,10 @@ class ProductsController extends Controller
 
     public function delete(Products $product)
     {
+        if($product->file) {
+            Storage::delete($product->file);
+        }
+
         Products::destroy($product->id);
         return redirect('/products/list')->with('messageSuccess', 'Product has been deleted!');
     }
@@ -117,15 +120,24 @@ class ProductsController extends Controller
         if($request->slug === $product->slug) {
             $rules = [
                 'name' => ['required', 'max:255'],
-                'category_id' => ['required'],
-                'image_url' => ['required'],
-                // 'file' => ['required'],
+                'category_id' => ['required']
             ];
         } else {
             $rules['slug'] = ['required','unique:products', 'max:255'];
         }
         
         $validatedData = $request->validate($rules);
+
+        if ($request->file('file')) {
+            $filename =  $request->file('file')->getClientOriginalName();
+            $path = $request->file('file')->storeAs(
+                'models', $filename
+            );
+            if ($request->oldFile){
+                Storage::delete($request->oldFile);
+            }
+            $validatedData['file'] = $path;
+        }
 
         $validatedData['user_id'] = auth()->user()->id;
 

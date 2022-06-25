@@ -19,13 +19,18 @@ class DatabaseSeeder extends Seeder
     {
         
         User::create([
-            'name' => 'Virgiawan',
-            'username' => 'virgiawankusuma',
-            'email' => 'virgiawandecorunic@gmail.com',
-            'password' => Hash::make('12345678')
+            'name' => 'Decorunic',
+            'username' => 'decorunic',
+            'email' => 'decorunic.wall@gmail.com',
+            'password' => Hash::make('sehatkayabahagia')
         ]);
             
         User::factory(3)->create();
+
+        Category::create([
+            'name' => 'Uncategorized',
+            'slug' => 'uncategorized'
+        ]);
 
         Category::create([
             'name' => 'Meja TV',
