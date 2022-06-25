@@ -15,6 +15,7 @@ class CategoryController extends Controller
             'title' => 'Product Category',
             'categories' => Category::all()
         ]);
+
     }
 
     public function add()
@@ -64,11 +65,16 @@ class CategoryController extends Controller
         return redirect('/products/categories')->with('messageSuccess', 'Category has been updated!');
     }
     
-    public function delete(Products $product, Category $category)
+    public function delete(Category $category)
     {
-        dd(Products::where('category_id', Category::get('id'))->count());
+        $CategoryInUse = Category::where('id', $category->id)->withCount('products')->get()[0]->products_count;
+        
+        if($CategoryInUse) {
+            return redirect('/products/categories')->with('messageFail', 'Category can\'t be deleted, because in use on the product!');
+        } else {
+            Category::destroy($category->id);
+            return redirect('/products/categories')->with('messageSuccess', 'Category has been deleted!');
+        }
 
-        Category::destroy($category->id);
-        return redirect('/products/categories')->with('messageSuccess', 'Category has been deleted!');
     }
 }
