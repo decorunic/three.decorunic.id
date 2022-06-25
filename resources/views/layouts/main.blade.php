@@ -11,6 +11,8 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+    
+    <title>{{ $title }} &lsaquo; {{ $siteName }}</title>
 
     <link rel="apple-touch-icon" sizes="57x57" href="{{ '/img/apple-icon-57x57.png' }}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ '/img/apple-icon-60x60.png' }}">
@@ -26,8 +28,6 @@
     <link rel="icon" type="image/png" sizes="96x96" href="{{ '/img/favicon-96x96.png' }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ '/img/favicon-16x16.png' }}">
     <link rel="manifest" href="{{ '/img/manifest.json' }}">
-
-    <title>{{ $title }} &lsaquo; {{ $siteName }}</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ '/sb-admin-2/vendor/fontawesome-free/css/all.min.css' }}" rel="stylesheet" type="text/css">
