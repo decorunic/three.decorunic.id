@@ -35,7 +35,7 @@
 											<link rel="stylesheet" href="{{ '/vendor/prism/prism.css' }}">
 											<div class="tab-pane fade show active" id="nav-view-3d" role="tabpanel" aria-labelledby="nav-view-3d-tab">
 												<pre>
-													<code class="language-html">&lt;iframe title="lisa" src="{{ URL::to('/products/view-3d/' . $product->slug)}}" frameborder="0" allowfullscreen="allowfullscreen" style="width:100%; height:264px">&lt;/iframe&gt;</code>
+													<code class="language-html">&lt;iframe title="{{ $product->name }}" src="{{ URL::to('/products/view-3d/' . $product->slug)}}" frameborder="0" allowfullscreen="allowfullscreen" style="width:100%; height:264px">&lt;/iframe&gt;</code>
 												</pre>
 												<a href="{{ '/products/view-3d/'. $product->slug }}" target="_blank" rel="noreferrer" class="btn btn-info"><i class="fas fa-eye"></i> New Tab</a>
 											</div>
